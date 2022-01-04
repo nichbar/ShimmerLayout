@@ -255,7 +255,12 @@ public class ShimmerLayout extends FrameLayout {
 
         canvasForShimmerMask.restore();
 
-        drawShimmer(canvas);
+        try {
+            drawShimmer(canvas);
+        } catch (NullPointerException exception) {
+            // Catch nullpointer exception on legacy Meizu device. https://github.com/team-supercharge/ShimmerLayout/issues/81
+            exception.printStackTrace();
+        }
 
         localMaskBitmap = null;
     }
